@@ -3,7 +3,7 @@ import { TimerStep, Workouts } from "@/app/types";
 const countdownStep: TimerStep = {
   name: "Countdown",
   description: "",
-  durationMs: 3000,
+  durationMs: 5000,
   type: "countdown",
 };
 

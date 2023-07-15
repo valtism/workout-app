@@ -7,6 +7,7 @@ import { workoutsToTimerStep } from "@/app/timer/workoutsToTimerStep";
 import { TimerState, Workouts } from "@/app/types";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { playBeep } from "@/app/timer/audio";
 
 const BackgroundColors: Record<TimerState, string> = {
   countdown: "#1f2937",
@@ -42,9 +43,13 @@ export function Timer() {
       const interval = setInterval(() => {
         if (timeMs > 0) {
           // Timer is running
+          if ([1000, 2000, 3000].includes(timeMs)) {
+            playBeep(0.1, 2000);
+          }
           setTimeMs((time) => time - TickMs);
           return;
         }
+        playBeep(0.3, 2400);
         if (stepIndex < discreetSteps.length - 1) {
           // Timer is done and there are more steps
           setStepIndex((index) => index + 1);
