@@ -2,6 +2,7 @@
 
 import { TimerControls } from "@/app/timer/TimerControls";
 import { formatMsToTime } from "@/app/timer/formatMsToTime";
+import { useWakeLockWhileRunning } from "@/app/timer/useWakeLockWhileRunning";
 import { workoutsToTimerStep } from "@/app/timer/workoutsToTimerStep";
 import { TimerState, Workouts } from "@/app/types";
 import { useRouter } from "next/navigation";
@@ -32,6 +33,8 @@ export function Timer() {
   const currentStep = discreetSteps[stepIndex];
   const [timeMs, setTimeMs] = useState(currentStep.durationMs);
   const [isRunning, setIsRunning] = useState(true);
+
+  useWakeLockWhileRunning(isRunning);
 
   useEffect(() => {
     // This useEffect runs the timer
