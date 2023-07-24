@@ -18,11 +18,18 @@ const BackgroundColors: Record<TimerState, string> = {
 const TickMs = 100;
 
 const workoutSets: Workouts = {
-  restMs: 3000,
-  restBetweenSetsMs: 5000,
+  restMs: 15000,
+  restBetweenSetsMs: 30000,
   workouts: [
-    { name: "Pushups", sets: 3, durationMs: 5000 },
-    { name: "Squats", sets: 3, durationMs: 5000 },
+    { name: "V-ups", sets: 3, durationMs: 45000 },
+    { name: "Side Plank", sets: 4, durationMs: 45000 },
+    { name: "Russian Twist", sets: 3, durationMs: 45000 },
+    { name: "Straight Arm Flys", sets: 3, durationMs: 45000 },
+    { name: "Ball Flys", sets: 3, durationMs: 45000 },
+    { name: "Leg raises", sets: 3, durationMs: 45000 },
+    { name: "Cleans", sets: 3, durationMs: 45000 },
+    { name: "Pushups", sets: 3, durationMs: 45000 },
+    { name: "Supermans", sets: 3, durationMs: 45000 },
   ],
 };
 
@@ -35,7 +42,7 @@ export function Timer() {
   const [timeMs, setTimeMs] = useState(currentStep.durationMs);
   const [isRunning, setIsRunning] = useState(true);
 
-  useWakeLockWhileRunning(isRunning);
+  const isSupported = useWakeLockWhileRunning(isRunning);
 
   useEffect(() => {
     // This useEffect runs the timer
@@ -66,6 +73,11 @@ export function Timer() {
 
   return (
     <div className="flex min-h-screen flex-col justify-between">
+      {isSupported ? (
+        <div>Wake lock supported</div>
+      ) : (
+        <div>Wake lock not supported</div>
+      )}
       <div className="flex flex-col gap-4 px-10 pt-20">
         <div
           key={stepIndex}
